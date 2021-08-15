@@ -12,6 +12,7 @@ import pathlib
 import argparse
 
 parser =  argparse.ArgumentParser(description='\'DVD\' VOB/MPEG file discover, sort, and merge to a single file.')
+safe_extensions = ['.vob', '.mpeg', '.mpg']
 
 # Script arguments:
 parser.add_argument('-d', '--directory', type=str, metavar='',
@@ -19,6 +20,8 @@ parser.add_argument('-d', '--directory', type=str, metavar='',
 parser.add_argument('-o', '--out', type=str, metavar='',
                     help='Directory to output files; otherwise output will be in current directory.')
 
+parser.add_argument('-i', '--ignore', action='store_true',
+                    help='Ignore files without VOB/MPEG extensions.')
 parser.add_argument('-l', '--local', action='store_true',
                     help='Do not scan inside folders.')
 parser.add_argument('-x', '--delete', type=str, metavar='',
@@ -52,11 +55,17 @@ elif args.sort == 'descending':
 
 # Process files Nd directories:
 directories = {}
-for filepath in files:
-    folder = os.path.basename(os.path.dirname(filepath))
+for file_path in files:
+    folder = os.path.basename(os.path.dirname(file_path))
     if folder in directories:
-        directories[folder].append(filepath)
+        directories[folder].append(file_path)
     else:
-        directories[folder] = [filepath]
+        directories[folder] = [file_path]
 
-print(directories)
+# Walk the files:
+for directory, file_paths in directories.items():
+    for file_path in file_paths:
+        filename, extension = os.path.splitext(file_path)
+    
+        if (extension not in safe_extensions) and (args.ignore):
+            print("Ignoring file: \'{0}\'".format(file_path))

@@ -24,8 +24,10 @@ parser.add_argument('-i', '--ignore', action='store_true',
                     help='Ignore files without VOB/MPEG extensions.')
 parser.add_argument('-l', '--local', action='store_true',
                     help='Do not scan inside folders.')
-parser.add_argument('-x', '--delete', type=str, metavar='',
+parser.add_argument('-c', '--clean', type=str, metavar='',
                     help='Delete individual files after mergining.')
+parser.add_argument('-x', '--extension', type=str, metavar='',
+                    help='Extension of output file. | Default: mpeg')
 parser.add_argument('-v', '--verbose', action='store_true',
                     help='Show more details.')
 parser.add_argument('-s', '--sort', type=str, metavar='',
@@ -55,7 +57,7 @@ elif args.sort == 'descending':
 
 # Process files Nd directories:
 directories = {}
-for file_path in files:
+for file_path in files: # order of iteration is not gauranteed for dictionaries.
     folder = os.path.basename(os.path.dirname(file_path))
     if folder in directories:
         directories[folder].append(file_path)
@@ -63,9 +65,16 @@ for file_path in files:
         directories[folder] = [file_path]
 
 # Walk the files:
-for directory, file_paths in directories.items():
-    for file_path in file_paths:
+for directory_name, file_paths in directories.items():
+    output_file = open(os.path.join(out_directory, directory_name + '.' + 
+        ('mpeg' if args.extension == None else args.extension)), 'xb') # 'xb' create binary-mode.
+
+    for file_path in file_paths: # order of iteration is gauranteed for lists.
         filename, extension = os.path.splitext(file_path)
     
         if (extension not in safe_extensions) and (args.ignore):
             print("Ignoring file: \'{0}\'".format(file_path))
+
+        print(output_file)
+        
+        

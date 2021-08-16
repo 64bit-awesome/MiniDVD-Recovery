@@ -57,21 +57,21 @@ elif args.sort == 'descending':
 
 # Process files Nd directories:
 directories = {}
-for file_path in files: # order of iteration is not gauranteed for dictionaries.
+for file_path in files: # order of iteration is not guaranteed for dictionaries, -> not a problem.
     folder = os.path.basename(os.path.dirname(file_path))
     if folder in directories:
         directories[folder].append(file_path)
     else:
         directories[folder] = [file_path]
 
-# Walk the files:
+# Process files:
 for directory_name, file_paths in directories.items():
     output_file = open(os.path.join(out_directory, directory_name + '.' + 
         ('mpeg' if args.extension == None else args.extension)), 'xb') # 'xb' create binary-mode.
     
     print("--/{root}".format(root=directory_name))
 
-    for file_path in file_paths: # order of iteration is gauranteed for lists.
+    for file_path in file_paths: # order of iteration is guaranteed for lists.
         filename, extension = os.path.splitext(file_path)
     
         if (extension not in safe_extensions) and (args.ignore):

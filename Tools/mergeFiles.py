@@ -81,6 +81,9 @@ for directory_name, file_paths in directories.items():
             file.close()
 
             print("\t Added: {file}".format(file=file_path))
+
+            if args.clean:
+                os.remove(file_path)
         
     output_file.seek(0, os.SEEK_END)
     print("\t Total file size: {size} bytes".format(size=output_file.tell()))

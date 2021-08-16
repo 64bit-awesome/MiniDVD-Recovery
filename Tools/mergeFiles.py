@@ -16,22 +16,22 @@ safe_extensions = ['.vob', '.mpeg', '.mpg']
 
 # Script arguments:
 parser.add_argument('-d', '--directory', type=str, metavar='',
-                    help='Start scanning in a specific directory.')
+                    help='start scanning in another directory')
 parser.add_argument('-o', '--out', type=str, metavar='',
-                    help='Directory to output files; otherwise output will be in current directory.')
+                    help='directory to output files')
 
 parser.add_argument('-i', '--ignore', action='store_true',
-                    help='Ignore files without VOB/MPEG extensions.')
+                    help='ignore files without VOB/MPEG extensions')
 parser.add_argument('-l', '--local', action='store_true',
-                    help='Do not scan inside folders.')
+                    help='do not scan inside folders')
 parser.add_argument('-c', '--clean', type=str, metavar='',
-                    help='Delete individual files after mergining.')
+                    help='delete individual files after mergining')
 parser.add_argument('-x', '--extension', type=str, metavar='',
-                    help='Extension of output file. | Default: mpeg')
+                    help='extension of output file / default: mpeg')
 parser.add_argument('-v', '--verbose', action='store_true',
-                    help='Show more details.')
+                    help='show more details')
 parser.add_argument('-s', '--sort', type=str, metavar='',
-                    help='Sort the files in: ascending [default], descending')
+                    help='sort the files in: ascending [default], descending')
 
 args = parser.parse_args() # parse arguments.
 out_directory = os.getcwd() if args.out == None else args.out

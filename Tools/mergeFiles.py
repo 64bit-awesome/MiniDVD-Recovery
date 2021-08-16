@@ -80,11 +80,12 @@ for directory_name, file_paths in directories.items():
             output_file.write(file.read())
             file.close()
 
-            print("\t Added: {file}".format(file=file_path))
+            print("\t Merged: {file}".format(file=file_path))
 
             if args.clean:
                 os.remove(file_path)
-                print("\t\tDeleted: {file}".format(file=file_path))
+                print("\t Deleted: {file}".format(file=file_path))
+                print('')
         
     output_file.seek(0, os.SEEK_END)
     print("\t Total file size: {size} bytes".format(size=output_file.tell()))

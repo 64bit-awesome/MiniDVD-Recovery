@@ -1,12 +1,11 @@
 # Author: Jordy Araujo <https://github.com/64bit-awesome/>
 # Requires: Python 3.6+
 
-# Version: 0.1-dev
+# Version: 0.1-rc
 # Codename: vm-magic-2x
 # 'DVD' VOB/MPEG file discover, sort, and merge -> single file.
 
 import os
-import sys
 import glob
 import pathlib
 import argparse

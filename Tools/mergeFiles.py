@@ -68,17 +68,21 @@ for file_path in files: # order of iteration is not gauranteed for dictionaries.
 for directory_name, file_paths in directories.items():
     output_file = open(os.path.join(out_directory, directory_name + '.' + 
         ('mpeg' if args.extension == None else args.extension)), 'xb') # 'xb' create binary-mode.
+    
+    print("--/{root}".format(root=directory_name))
 
     for file_path in file_paths: # order of iteration is gauranteed for lists.
         filename, extension = os.path.splitext(file_path)
     
         if (extension not in safe_extensions) and (args.ignore):
-            print("Ignoring file: \'{0}\'".format(file_path))
+            print("\t Ignoring file: \'{0}\'".format(file_path))
         else:
             file = open(file_path, 'rb') # 'rb' read binary-mode.
             output_file.write(file.read())
             file.close()
 
-        print(output_file)
+            print("\t Added: {file}".format(file=file_path))
         
+    output_file.seek(0, os.SEEK_END)
+    print("\t Total file size: {size} bytes".format(size=output_file.tell()))
     output_file.close()

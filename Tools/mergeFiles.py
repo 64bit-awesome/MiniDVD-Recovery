@@ -2,7 +2,7 @@
 # Requires: Python 3.6+
 
 # Version: 0.1-rc
-# Codename: vm-magic-2x
+# Codename: vm-magic-x2
 # 'DVD' VOB/MPEG file discover, sort, and merge -> single file.
 
 import os
@@ -33,7 +33,7 @@ parser.add_argument('-s', '--sort', type=str, metavar='',
                     help='sort the files in: ascending [default], descending')
 
 args = parser.parse_args() # parse arguments.
-out_directory = os.getcwd() if args.out == None else args.out
+out_directory = os.getcwd() if args.out == None else os.path.abspath(args.out)
 
 # Change directory if required:
 if args.directory != None:
@@ -44,6 +44,7 @@ glob_path = pathlib.Path('.' if args.local == True else '**').absolute() / '*.*'
 
 if args.verbose:
     print("Glob path: {0}".format(glob_path))
+    print("Output path: {0}".format(out_directory))
 
 # Get files:
 files = glob.glob(str(glob_path), recursive = not args.local)

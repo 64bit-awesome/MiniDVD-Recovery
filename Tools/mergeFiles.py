@@ -23,7 +23,7 @@ parser.add_argument('-i', '--ignore', action='store_true',
                     help='ignore files without VOB/MPEG extensions')
 parser.add_argument('-l', '--local', action='store_true',
                     help='do not scan inside folders')
-parser.add_argument('-c', '--clean', type=str, metavar='',
+parser.add_argument('-c', '--clean', action='store_true',
                     help='delete individual files after mergining')
 parser.add_argument('-x', '--extension', type=str, metavar='',
                     help='extension of output file / default: mpeg')
@@ -84,6 +84,7 @@ for directory_name, file_paths in directories.items():
 
             if args.clean:
                 os.remove(file_path)
+                print("\t\tDeleted: {file}".format(file=file_path))
         
     output_file.seek(0, os.SEEK_END)
     print("\t Total file size: {size} bytes".format(size=output_file.tell()))

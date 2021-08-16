@@ -1,4 +1,4 @@
-# MiniDVD-Recovery
+# MiniDVD-Recovery / Extraction
 Hey, do you have unfinalized miniDVDs created with Sony/Canon camcorders?
 
 There's not a lot of information out there; \

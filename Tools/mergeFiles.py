@@ -74,7 +74,11 @@ for directory_name, file_paths in directories.items():
     
         if (extension not in safe_extensions) and (args.ignore):
             print("Ignoring file: \'{0}\'".format(file_path))
+        else:
+            file = open(file_path, 'rb') # 'rb' read binary-mode.
+            output_file.write(file.read())
+            file.close()
 
         print(output_file)
         
-        
+    output_file.close()
